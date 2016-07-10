@@ -1,0 +1,143 @@
+<!doctype html>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+<html>
+  <head>
+    <title>History Cleaner</title>
+    <style>
+      body {
+        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+        font-size: 13px;
+      }
+      ::-webkit-scrollbar {
+        display: none;
+      }      
+      input {
+        border-radius: 0;
+      }
+      input:focus {
+        outline: none;
+      }
+      ul.list {
+        padding: 0;
+        width: 160px;
+        overflow: auto;
+        max-height: 160px;
+        margin: 10px 0 0 0;
+      }
+      .fadeout {
+        display: none;
+        position: absolute;
+        width: 100%;
+        bottom: 3em;
+        height: 2.4em;
+        background: -webkit-linear-gradient(
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 1) 100%
+        );
+      }      
+      ul.list li {
+        list-style-type: none;
+        padding-top: 5px;
+        font-size: 10px;
+        list-style-position:inside;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;         
+      }
+      ul.list li.empty {
+        height: 40px;
+      }
+      #main {
+        margin: 6px;
+        float: left;    
+      }
+      #search {
+        padding: 5px 5px 7px 5px;
+        border-bottom-width: 2px;
+        border-bottom-color: rgba(0, 139, 139, .6);
+        border-left-width: 0;
+        border-top-width: 0;
+        border-right-width: 0;
+        font-size: 14px;
+      }
+      .btn {
+        float: right;
+        padding: 3px;
+        border-color: rgba(0, 139, 139, 0.49);
+        border-width: 1px;
+        background-color: #fff;        
+        cursor: pointer;
+      }
+      #delete {
+        padding: 5px 14px;
+      }
+      .btn:hover {
+        border-color: darkcyan;
+      }
+      #confirm, #cancel {
+        margin: 0 0 0 5px;
+        width: 35px;
+      }
+      .results {
+        padding: 10px 0;
+      }
+      .results .results-total {
+        cursor: pointer;
+        display: inline-block;
+      }
+      .confirm-block, .notify-block {
+        float: left;
+        padding: 10px 0 0 0;
+        margin: 16px 0 0 0;
+        border-top: 1px solid rgba(0, 139, 139, 0.33);        
+        width: 100%;
+        display: none;
+      }
+      .notify-block {
+        padding-top: 8px;
+      }
+      .confirm-block #message {
+        margin-right: 1px;
+      }
+      .notify-block #error {
+        color: #f44336;
+      }
+      .notify-block #success {
+        color: #4caf50;
+      }      
+    </style>
+
+    <!--
+      - JavaScript and HTML must be in separate files: see our Content Security
+      - Policy documentation[1] for details and explanation.
+      -
+      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+     -->
+    <script src="popup.js"></script>
+  </head>
+  <body>
+    <div id="main">
+      <input type="search" id="search" placeholder="Search history"/>
+      <div class="results">
+        <div class="results-total js-results-total"></div>        
+        <ul class="list js-list"></ul>
+        <div class="fadeout js-fadeout"></div>
+      </div>
+      <input type="button" id="delete" class="btn" value="Delete"></input>
+      <div class="confirm-block js-confirm-block">
+        <span id="message">Are you sure?</span>
+        <input id="cancel" type="button" class="btn" value="No"/>
+        <input id="confirm" type="button" class="btn" value="Yes"/>
+      </div>
+      <div  class="notify-block js-notify-block">
+        <span id="error"></span>
+        <span id="success"></span>        
+      </div>
+    </div>
+  </body>
+</html>
+

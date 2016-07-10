@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+
+  "name": "plain history cleaner",
+  "description": "This extension is looking for matches in history and allows to delete all the results",
+  "version": "1.0",
+  "author": "Artyom Yagovdik <qweirdy@gmail.com>",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": [
+    "history"
+  ]
+}
