@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if(searchTerm == '') return;
                 hideNotification();
                 results.innerText = 'Found: ' + pages.length;
+                if (pages.length == 0) return closeList(pages);
                 showList(pages);
             });   
         }, 500);
