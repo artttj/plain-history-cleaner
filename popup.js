@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var notifyBlock = document.querySelector('.js-notify-block'); 
     var errorMsg = document.getElementById('error');
     var successMsg = document.getElementById('success');    
+    var loadingIcon = document.getElementById('loading-icon');
     var showNotification = function(msg, success) {
         notifyBlock.style.display = 'block';
         if(success) {
@@ -87,11 +88,16 @@ document.addEventListener('DOMContentLoaded', function() {
             nextEndTimeToUse = 0;
             allItems = [];
             itemIdToIndex = {};
+            loadingIcon.innerHTML = 'Searching&nbsp;&nbsp;<img src="loading.gif"><br/><br/>';
             find(function(pages){
                 if(searchTerm == '') return;
                 hideNotification();
                 results.innerText = 'Found: ' + pages.length;
-                if (pages.length == 0) return closeList(pages);
+                if (pages.length == 0) {
+                    loadingIcon.innerHTML = '';
+                    return closeList(pages);
+                }
+                loadingIcon.innerHTML = '';
                 showList(pages);
             });   
         }, 500);
